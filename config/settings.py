@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'pybo.apps.PyboConfig', # pybo/apps.py 파일에 있는 클래스
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -72,11 +73,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+# SQLite는 주로 개발용이나 소규모 프로젝트에서 사용되는 가벼운 파일 기반의 데이터베이스
+# ORM(Object Relational Mapping)을 사용해 sql의 단점인 잘못된 쿼리문에의한 성능저하, 데이터베이스에 따라 바꿔야하는 문법을 커버침.
+# 자동으로 쿼리문 생성
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3', # BASE_DIR은 현재 디렉토리를 의미.
     }
 }
 
