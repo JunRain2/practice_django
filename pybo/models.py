@@ -9,6 +9,9 @@ class Question(models.Model):
     content = models.TextField()# 글자 제한 없을 시 TextFiled() 사용.
     create_date = models.DateTimeField()
 
+    def __str__(self): # Question.objects.all() 에서 제목으로 볼 수 있게해줌.
+        return self.subject
+
 
 class Answer(models.Model):
     #질문에 대한 답변이므로 ForeignKey를 통해 질문과 연결.
