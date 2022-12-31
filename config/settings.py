@@ -44,7 +44,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware', # 웹 사이트 취약점 공격 방지를 위한 CSRF 토ㅅ
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -52,10 +52,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+# 템플릿 파일 작성 전 템플릿 파일을 저장할 디렉터리 설정, 자식 디렉터리도 템플릿으로 설정딤
+# Pybo 아래 디렉터리는 모두 템플릿으로 인식하지만 관리하기 힘들어서 비추천.
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'], # 템플릿 디렉터리를 여러개 저장할 수 있는 리스트 형식
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,10 +120,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-
+# 스타일시트 파일을 스태틱 디렉터리에 저장.
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
