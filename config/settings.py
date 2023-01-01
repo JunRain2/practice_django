@@ -31,9 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'common.apps.CommonConfig', # django-admin startapp common 명령어 입력시 생성되는 파일 등록 / 로그인은 여러 서비스에서 사용함으로 종속시키는것은 옳지 않아 외부에 만듦.
     'pybo.apps.PyboConfig', # pybo/apps.py 파일에 있는 클래스
     'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth', # 로그인을 도와주는 app
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -128,3 +129,9 @@ STATICFILES_DIRS = [
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 로그인 성공후 이동하는 URL
+LOGIN_REDIRECT_URL = '/'
+
+# 로그아웃시 이동하는 URL
+LOGOUT_REDIRECT_URL = '/'
