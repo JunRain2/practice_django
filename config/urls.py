@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from pybo import views
+from pybo.views import base_views
 
 # pybo 뒤에 /를 붙여줌으로서 localhost:8000/pybo를 자동으로 pybo/로 변환해줌
+# pybo --> homedirectory 느낌
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pybo/', include('pybo.urls')), # pybo/ 요청을 받으면 pybo/urls.py 를 읽어 처리 하라는 뜻.
     path('common/', include('common.urls')),
-    path('',views.index, name='index'), # '/'에 해당하는 path
+    path('', base_views.index, name='index'), # '/'에 해당하는 path
 ]

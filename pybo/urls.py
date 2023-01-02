@@ -7,6 +7,7 @@ from .views import base_views, answer_views, question_views
 app_name = 'pybo'
 
 # 명확하게 볼 수 있게 변경
+# path(웹주소, 실행 메소드, url_name)
 urlpatterns = [
     # base_views
     path('', base_views.index, name='index'), # path에 'pybo/'가 생략된 것.
@@ -19,6 +20,7 @@ urlpatterns = [
     path('answer/create/<int:question_id>/', answer_views.answer_create, name='answer_create'),  # 답변 등록
     path('answer/modify/<int:answer_id>/', answer_views.answer_modify, name='answer_modify'), # 답변 변경
     path('answer/delete/<int:answer_id>/', answer_views.answer_delete, name='answer_delete'), # 답변 삭제
+    path('answer/vote/<int:question_id>/', question_views.question_vote, name = 'question_vote'), # 추천인 등록
 ]
 
 # name : 수정될 수 있는 url 하드코딩을 별칭을 부여.

@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.checks import messages
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect, render, resolve_url
 from django.utils import timezone
 
 from pybo.forms import AnswerForm
@@ -18,7 +18,9 @@ def answer_create(request, question_id):
             answer.create_date = timezone.now()
             answer.question = question
             answer.save()
-            return redirect('pybo:detail', question_id=question.id)
+            return redirect('{}#answer_{}'.format(
+                resolve_url('pybo:detail', question_id=question.id), answer.id
+            ))# 앵커를 포함, resolbe_url => 실제로 호출되는 URL 문자열을 리턴하는 장고함수.
     else:
         # 답변등록 URL인 /answer/create가 GET 방식으로 호출 --> HttpResponseNotAllowed의 405 오류 발생 --> 따라서 그냥 AnswerForm으로 이동하게 수정.
         form = AnswerForm()
@@ -37,7 +39,8 @@ def answer_modify(request, answer_id):
             answer = form.save(commit=False)
             answer.modify_date = timezone.now()
             answer.save()
-            return redirect('pybo:detail', question_id=answer.question.id)
+            return redirect('{}#answer_{}'.format(
+              resolve_url('pybo:detail', question_id=answer.question.id), answer.id))
     else :
         form = AnswerForm(instance=answer)
     context = {'answer':answer, 'form':form}
@@ -50,4 +53,5 @@ def answer_delete(request, answer_id):
         messages.error('삭제권한이 없습니다')
     else :
         answer.delete()
-    return redirect('pybo:detail', question_id=answer.question.id)
+    return redirect('{}#answer_{}'.format(
+        resolve_url('pybo:detail', question_id = answer.question.id), answer.id))
