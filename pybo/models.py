@@ -1,7 +1,5 @@
-from django.db import models
-
 # Create your models here.
-from django.db import models
+from djongo import models
 from django.contrib.auth.models import User # 사용자 모델, 회원 가입시 데이터 저장에 사용했던 모델.
 
 

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'common.apps.CommonConfig', # django-admin startapp common 명령어 입력시 생성되는 파일 등록 / 로그인은 여러 서비스에서 사용함으로 종속시키는것은 옳지 않아 외부에 만듦.
     'pybo.apps.PyboConfig', # pybo/apps.py 파일에 있는 클래스
     'django.contrib.admin',
@@ -82,8 +83,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3', # BASE_DIR은 현재 디렉토리를 의미.
+        'ENGINE': 'djongo',
+        'NAME': 'DB',
+        'HOST': '127.0.0.1',
+        'PORT': 27017,
     }
 }
 
